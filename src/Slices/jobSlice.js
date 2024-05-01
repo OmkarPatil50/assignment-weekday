@@ -4,7 +4,8 @@ import { getAllJobs } from "../Thunks/jobsThunk";
 const initialStateForJobs = {
     jobs: [],
     loading: false,
-    error: null
+    error: null,
+    page: 0
 }
 
 export const jobSlice = createSlice({
@@ -15,8 +16,10 @@ export const jobSlice = createSlice({
             state.loading = true
         })
         builder.addCase(getAllJobs.fulfilled, (state, action) => {
+            console.log(action)
             state.loading = false
             state.jobs = action.payload
+            state.page++;
         })
         builder.addCase(getAllJobs.rejected, (state, action) => {
             state.loading = false

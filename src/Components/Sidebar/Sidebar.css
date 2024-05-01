@@ -10,6 +10,7 @@
   transition: all 0.3s ease;
   border-right: 1px solid var(--gray-color);
   padding: 10px;
+  background: white;
 }
 
 .sidebar-closed {
