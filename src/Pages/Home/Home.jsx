@@ -6,10 +6,11 @@ import JobCard from "../../Components/JobCard/JobCard";
 import Spinner from "../../Components/Spinner/Spinner";
 import "./Home.css";
 import JobModal from "../../Components/Modal/Modal";
+import FilterBar from "../../Components/FilterBar/FilterBar";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { jobs, page, loading } = useSelector((state) => state.jobs);
+  const { filteredJobs, page, loading } = useSelector((state) => state.jobs);
   const [openModal, setOpenModal] = useState({
     open: false,
     data: {},
@@ -63,8 +64,9 @@ const Home = () => {
           isOpen ? "margin-open" : "margin-close"
         } job-cards-section`}
       >
+        <FilterBar />
         <div className="grid-container">
-          {jobs?.map((job, index) => {
+          {filteredJobs?.map((job, index) => {
             return (
               <JobCard
                 key={index}

@@ -3,6 +3,7 @@ import { getAllJobs } from "../Thunks/jobsThunk";
 
 const initialStateForJobs = {
     jobs: [],
+    filteredJobs: [],
     loading: false,
     error: null,
     page: 0,
@@ -19,6 +20,7 @@ export const jobSlice = createSlice({
         builder.addCase(getAllJobs.fulfilled, (state, action) => {
             state.loading = false
             state.jobs = [...state.jobs, ...action.payload.jdList]
+            state.filteredJobs = [...state.filteredJobs, ...action.payload.jdList]
             state.page++
         })
         builder.addCase(getAllJobs.rejected, (state, action) => {
