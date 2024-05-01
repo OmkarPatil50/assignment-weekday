@@ -1,0 +1,125 @@
+.sidebar {
+  position: fixed;
+  z-index: 50;
+  bottom: 5px;
+  height: 100vh;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  transition: all 0.3s ease;
+  border-right: 1px solid var(--gray-color);
+  padding: 10px;
+}
+
+.sidebar-closed {
+  width: 7rem;
+}
+
+.sidebar-open {
+  width: 16rem;
+}
+
+.sidebar-header {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-logo {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  cursor: pointer;
+  margin: auto;
+}
+.sidebar-logo-large {
+  width: fit-content;
+  height: 30px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.btn-chevron {
+  background: none;
+  background-color: white;
+  border: 2px solid var(--gray-color);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-chevron-closed {
+  margin-right: -35px;
+}
+
+.sidebar-nav {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.sidebar-nav-items-section {
+  border-top: 2px solid var(--gray-color);
+  padding: 20px 0;
+  margin-left: 10px;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 4px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  position: relative;
+}
+.new {
+  background-color: var(--app-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+}
+
+.nav-item-title {
+  font-size: 10px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+.nav-item-name {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--primary-color);
+  margin-left: 10px;
+}
+
+.sidebar-profile {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-self: flex-end;
+}
+
+.sidebar-profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.sidebar-profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebar-profile-text {
+  margin-left: 10px;
+  font-size: 12px;
+}

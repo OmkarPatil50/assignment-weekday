@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import Sidebar from "../../Components/Sidebar/Sidebar";
 
 const Home = () => {
-  return <div>This is Home Pagee</div>;
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div>
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+    </div>
+  );
 };
 
 export default Home;
