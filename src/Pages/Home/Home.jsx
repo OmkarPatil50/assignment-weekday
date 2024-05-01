@@ -8,7 +8,7 @@ import JobModal from "../../Components/Modal/Modal";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { jobs, page } = useSelector((state) => state.jobs);
+  const { jobs, page, loading } = useSelector((state) => state.jobs);
   const [openModal, setOpenModal] = useState({
     open: false,
     data: {},
@@ -20,19 +20,23 @@ const Home = () => {
     dispatch(getAllJobs(page));
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
+  const handleInfiniteScroll = async () => {
+    try {
       if (
-        window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight
-      )
-        return;
-      dispatch(getAllJobs(page));
-    };
+        window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight
+      ) {
+        dispatch(getAllJobs(page));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [dispatch, page]);
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfiniteScroll);
+    return () => window.removeEventListener("scroll", handleInfiniteScroll);
+  }, [page]);
 
   const handleOpenModal = (data) => {
     setOpenModal((prev) => ({ ...prev, open: true, data }));
@@ -55,6 +59,7 @@ const Home = () => {
           {jobs?.map((job, index) => {
             return (
               <JobCard
+                key={index}
                 jobData={job}
                 handleOpenModal={handleOpenModal}
                 openModal={openModal?.open}
@@ -62,6 +67,7 @@ const Home = () => {
             );
           })}
         </div>
+        {loading ? <h2>Loading...!</h2> : ""}
       </div>
     </div>
   );

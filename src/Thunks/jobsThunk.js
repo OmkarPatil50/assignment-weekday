@@ -5,7 +5,7 @@ export const getAllJobs = createAsyncThunk('jobs/getAllJobs', async (pageNumber)
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         const raw = JSON.stringify({
-            "limit": 10,
+            "limit": 9,
             "offset": pageNumber
         });
 
@@ -18,7 +18,7 @@ export const getAllJobs = createAsyncThunk('jobs/getAllJobs', async (pageNumber)
             "https://api.weekday.technology/adhoc/getSampleJdJSON", requestOptions
         );
         const result = await response.json();
-        return result.jdList
+        return result
     } catch (error) {
         console.log(error)
     }
