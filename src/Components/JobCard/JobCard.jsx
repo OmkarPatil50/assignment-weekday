@@ -3,8 +3,6 @@ import "./JobCard.css";
 import HourglassBottomOutlinedIcon from "@mui/icons-material/HourglassBottomOutlined";
 
 const JobCard = ({ jobData, handleOpenModal, openModal }) => {
-  
-
   const displayCompanyDetails = openModal
     ? jobData?.jobDetailsFromCompany
     : jobData?.jobDetailsFromCompany?.split("\n").slice(0, 7).join("\n");
@@ -29,8 +27,8 @@ const JobCard = ({ jobData, handleOpenModal, openModal }) => {
         </div>
       </section>
       <p className="job-salary">
-        Estimated Salary : {jobData?.maxJdSalary || "18"} -{" "}
-        {jobData?.maxJdSalary || "20"} LPA
+        Estimated Salary : {jobData?.minJdSalary || "18"} -{" "}
+        {jobData?.maxJdSalary || "20"} {jobData?.salaryCurrencyCode || "LPA"}
       </p>
       <section className="company-details-section">
         <p className="about-company-tag">About Company:</p>
@@ -41,7 +39,10 @@ const JobCard = ({ jobData, handleOpenModal, openModal }) => {
         </p>
         {!openModal && (
           <div className="flex-center view-more-btn-section">
-            <button className="view-more-btn" onClick={() => handleOpenModal(jobData?.jobDetailsFromCompany)}>
+            <button
+              className="view-more-btn"
+              onClick={() => handleOpenModal(jobData?.jobDetailsFromCompany)}
+            >
               View Job
             </button>
           </div>

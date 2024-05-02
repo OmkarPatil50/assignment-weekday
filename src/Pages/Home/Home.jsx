@@ -10,7 +10,9 @@ import FilterBar from "../../Components/FilterBar/FilterBar";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { filteredJobs, page, loading } = useSelector((state) => state.jobs);
+  const { selectedRole, filteredJobs, page, loading } = useSelector(
+    (state) => state.jobs
+  );
   const [openModal, setOpenModal] = useState({
     open: false,
     data: {},
@@ -50,6 +52,8 @@ const Home = () => {
   const handleOpenModal = (data) => {
     setOpenModal((prev) => ({ ...prev, open: true, data }));
   };
+
+  console.log(filteredJobs);
 
   return (
     <div>

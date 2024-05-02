@@ -1,9 +1,24 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import "./FilterBar.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setRoleFilter,
+  setEmployeeCountFilter,
+  setExperienceFilter,
+  setLocationFilter,
+  setSalaryFilter,
+} from "../../Slices/jobSlice";
 
 const FilterBar = () => {
-  const { jobs } = useSelector((state) => state.jobs);
+  const {
+    selectedSalary,
+    selectedLocation,
+    selectedExperience,
+    selectedEmployeeCount,
+    selectedRole,
+    jobs,
+  } = useSelector((state) => state.jobs);
+  const dispatch = useDispatch();
 
   const getAllRoles = jobs?.reduce((acc, curr) => {
     return acc?.some((item) => item === curr?.jobRole)
@@ -17,6 +32,25 @@ const FilterBar = () => {
       : [...acc, curr?.location];
   }, []);
 
+  const handleRoleChange = (event) => {
+    dispatch(setRoleFilter(event.target.value));
+  };
+
+  const handleEmployeeCountChange = (event) => {
+    dispatch(setEmployeeCountFilter(event.target.value));
+  };
+
+  const handleExperienceChange = (event) => {
+    dispatch(setExperienceFilter(event.target.value));
+  };
+
+  const handleLocationChange = (event) => {
+    dispatch(setLocationFilter(event.target.value));
+  };
+
+  const handleSalaryChange = (event) => {
+    dispatch(setSalaryFilter(event.target.value));
+  };
   return (
     <div className="filter-bar">
       <FormControl sx={{ margin: "10px", width: "300px" }}>
@@ -24,9 +58,9 @@ const FilterBar = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value=""
+          value={selectedRole}
           label="Roles"
-          onChange={() => {}}
+          onChange={handleRoleChange}
         >
           <MenuItem disabled value="">
             Select Role
@@ -47,9 +81,9 @@ const FilterBar = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value=""
+          value={selectedEmployeeCount}
           label="Number of Employees"
-          onChange={() => {}}
+          onChange={handleEmployeeCountChange}
         >
           <MenuItem disabled value="">
             Select Number of Employees
@@ -65,17 +99,20 @@ const FilterBar = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value=""
+          value={selectedExperience}
           label="Experience"
-          onChange={() => {}}
+          onChange={handleExperienceChange}
         >
           <MenuItem disabled value="">
             Select Experience
           </MenuItem>
           <MenuItem value={0}>Fresher</MenuItem>
-          <MenuItem value={1}>0 to 1 Year</MenuItem>
-          <MenuItem value={2}>1 to 2 Year</MenuItem>
-          <MenuItem value={3}>2 + Years</MenuItem>
+          <MenuItem value={1}>Upto 1 Year</MenuItem>
+          <MenuItem value={2}>Upto 2 Year</MenuItem>
+          <MenuItem value={3}>Upto 3 Years</MenuItem>
+          <MenuItem value={4}>Upto 4 Years</MenuItem>
+          <MenuItem value={5}>Upto 5 Years</MenuItem>
+          <MenuItem value={6}>Upto 6 Years</MenuItem>
         </Select>
       </FormControl>
       <FormControl sx={{ margin: "10px", width: "300px" }}>
@@ -83,9 +120,9 @@ const FilterBar = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value=""
+          value={selectedLocation}
           label="Location"
-          onChange={() => {}}
+          onChange={handleLocationChange}
         >
           <MenuItem disabled value="">
             Select Location
@@ -100,21 +137,21 @@ const FilterBar = () => {
         </Select>
       </FormControl>
       <FormControl sx={{ margin: "10px", width: "300px" }}>
-        <InputLabel id="demo-simple-select-label">Salary</InputLabel>
+        <InputLabel id="demo-simple-select-label">Minimum Salary</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value=""
-          label="Salary"
-          onChange={() => {}}
+          value={selectedSalary}
+          label="Minimum Salary"
+          onChange={handleSalaryChange}
         >
           <MenuItem disabled value="">
-            Select Salary
+            Select Minimum Salary
           </MenuItem>
           <MenuItem value={10}>upto 10 LPA</MenuItem>
           <MenuItem value={20}>10 to 20 LPA</MenuItem>
           <MenuItem value={50}>20 to 50 LPA</MenuItem>
-          <MenuItem value={50}>50+ LPA</MenuItem>
+          <MenuItem value={51}>50+ LPA</MenuItem>
         </Select>
       </FormControl>
     </div>
