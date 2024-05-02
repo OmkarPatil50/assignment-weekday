@@ -12,6 +12,7 @@ const initialStateForJobs = {
     selectedExperience: "",
     selectedLocation: "",
     selectedSalary: "",
+    selectedCompanyName: "",
 }
 
 export const jobSlice = createSlice({
@@ -39,6 +40,9 @@ export const jobSlice = createSlice({
             state.selectedSalary = action.payload;
             state.filteredJobs = filterJobs(state);
         },
+        setCompanyNameFilter: (state, action) => {
+            state.selectedCompanyName = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getAllJobs.pending, (state) => {
@@ -46,8 +50,8 @@ export const jobSlice = createSlice({
         })
         builder.addCase(getAllJobs.fulfilled, (state, action) => {
             state.loading = false
-            state.jobs = [...state.jobs, ...action.payload.jdList]
-            state.filteredJobs = [...state.filteredJobs, ...action.payload.jdList]
+            state.jobs = [...state.jobs, ...action?.payload?.jdList]
+            state.filteredJobs = [...state.filteredJobs, ...action?.payload?.jdList]
             state.page++
         })
         builder.addCase(getAllJobs.rejected, (state, action) => {
@@ -114,6 +118,13 @@ const filterJobs = (state) => {
         });
     }
 
+    if (state.selectedCompanyName !== "") {
+        const companyNameSearch = state.selectedCompanyName.toLowerCase();
+        getFilteredJobs = getFilteredJobs.filter((job) =>
+            job.companyName.toLowerCase().includes(companyNameSearch)
+        );
+    }
+
     return getFilteredJobs;
 };
 
@@ -124,6 +135,7 @@ export const {
     setExperienceFilter,
     setLocationFilter,
     setSalaryFilter,
+    setCompanyNameFilter
 } = jobSlice.actions;
 
 export default jobSlice.reducer;

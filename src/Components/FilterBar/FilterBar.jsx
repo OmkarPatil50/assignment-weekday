@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import "./FilterBar.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,6 +7,7 @@ import {
   setExperienceFilter,
   setLocationFilter,
   setSalaryFilter,
+  setCompanyNameFilter
 } from "../../Slices/jobSlice";
 
 const FilterBar = () => {
@@ -16,9 +17,11 @@ const FilterBar = () => {
     selectedExperience,
     selectedEmployeeCount,
     selectedRole,
+    selectedCompanyName,
     jobs,
   } = useSelector((state) => state.jobs);
   const dispatch = useDispatch();
+
 
   const getAllRoles = jobs?.reduce((acc, curr) => {
     return acc?.some((item) => item === curr?.jobRole)
@@ -50,6 +53,10 @@ const FilterBar = () => {
 
   const handleSalaryChange = (event) => {
     dispatch(setSalaryFilter(event.target.value));
+  };
+
+  const handleCompanyNameChange = (event) => { 
+    dispatch(setCompanyNameFilter(event.target.value)); 
   };
   return (
     <div className="filter-bar">
@@ -154,6 +161,14 @@ const FilterBar = () => {
           <MenuItem value={51}>50+ LPA</MenuItem>
         </Select>
       </FormControl>
+      <TextField
+        sx={{ margin: "10px", width: "300px" }}
+        id="outlined-basic"
+        label="Search by Company Name"
+        variant="outlined"
+        value={selectedCompanyName}
+        onChange={handleCompanyNameChange}
+      />
     </div>
   );
 };
