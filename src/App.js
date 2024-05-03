@@ -5,6 +5,7 @@ import Home from './Pages/Home/Home';
 function App() {
   return (
     <div className="App">
+        {/* Routing configuration */}
       <Routes>
         <Route path='/' element={<Home />} />
       </Routes>

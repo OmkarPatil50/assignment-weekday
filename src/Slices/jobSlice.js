@@ -1,6 +1,8 @@
+// Importing necessary dependencies
 import { createSlice } from "@reduxjs/toolkit";
 import { getAllJobs } from "../Thunks/jobsThunk";
 
+// Initial state for jobs slice
 const initialStateForJobs = {
     jobs: [],
     filteredJobs: [],
@@ -15,35 +17,42 @@ const initialStateForJobs = {
     selectedCompanyName: "",
 }
 
+// Creating the jobSlice
 export const jobSlice = createSlice({
     name: 'jobs',
     initialState: initialStateForJobs,
     reducers: {
+        // Reducer for setting role filter
         setRoleFilter(state, action) {
-            console.log(action.payload)
             state.selectedRole = action.payload;
             state.filteredJobs = filterJobs(state);
         },
+        // Reducer for setting employee count filter
         setEmployeeCountFilter(state, action) {
             state.selectedEmployeeCount = action.payload;
             state.filteredJobs = filterJobs(state);
         },
+        // Reducer for setting experience filter
         setExperienceFilter(state, action) {
             state.selectedExperience = action.payload;
             state.filteredJobs = filterJobs(state);
         },
+        // Reducer for setting location filter
         setLocationFilter(state, action) {
             state.selectedLocation = action.payload;
             state.filteredJobs = filterJobs(state);
         },
+        // Reducer for setting salary filter
         setSalaryFilter(state, action) {
             state.selectedSalary = action.payload;
             state.filteredJobs = filterJobs(state);
         },
-        setCompanyNameFilter: (state, action) => {
+        // Reducer for setting company name filter
+        setCompanyNameFilter(state, action) {
             state.selectedCompanyName = action.payload;
         },
     },
+    // Extra reducers for handling API requests
     extraReducers: (builder) => {
         builder.addCase(getAllJobs.pending, (state) => {
             state.loading = true
@@ -61,6 +70,7 @@ export const jobSlice = createSlice({
     }
 })
 
+// Function to filter jobs based on selected filters
 const filterJobs = (state) => {
     let getFilteredJobs = [...state.jobs];
 
@@ -92,7 +102,6 @@ const filterJobs = (state) => {
             } else {
                 return state.selectedExperience >= experience
             }
-
         });
     }
 
@@ -128,7 +137,7 @@ const filterJobs = (state) => {
     return getFilteredJobs;
 };
 
-
+// Exporting actions and reducer
 export const {
     setRoleFilter,
     setEmployeeCountFilter,

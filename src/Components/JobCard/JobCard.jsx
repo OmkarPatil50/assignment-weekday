@@ -1,17 +1,23 @@
+// Importing necessary dependencies and styles
 import React from "react";
 import "./JobCard.css";
 import HourglassBottomOutlinedIcon from "@mui/icons-material/HourglassBottomOutlined";
 
+// Defining the JobCard component
 const JobCard = ({ jobData, handleOpenModal, openModal }) => {
+  // Function to display company details either truncated or expanded based on the openModal state
   const displayCompanyDetails = openModal
     ? jobData?.jobDetailsFromCompany
     : jobData?.jobDetailsFromCompany?.split("\n").slice(0, 7).join("\n");
 
+  // Rendering the JobCard component
   return (
     <div className="job-card">
+      {/* Displaying posting date */}
       <p className="posting-date">
         <HourglassBottomOutlinedIcon /> Posted 3 days ago
       </p>
+      {/* Header section containing company logo, name, job role, and location */}
       <section className="job-card-header">
         <div>
           <img
@@ -26,17 +32,21 @@ const JobCard = ({ jobData, handleOpenModal, openModal }) => {
           <p className="capitalize job-location">{jobData?.location}</p>
         </div>
       </section>
+      {/* Displaying estimated salary */}
       <p className="job-salary">
         Estimated Salary : {jobData?.minJdSalary || "18"} -{" "}
         {jobData?.maxJdSalary || "20"} {jobData?.salaryCurrencyCode || "LPA"}
       </p>
+      {/* Section containing company details */}
       <section className="company-details-section">
         <p className="about-company-tag">About Company:</p>
         <p className="about-us-tag">About us</p>
+        {/* Displaying company details with expansion option */}
         <p className={`company-details ${openModal ? "expanded" : ""}`}>
           {displayCompanyDetails}
           {!openModal && <span className="fade-effect"></span>}
         </p>
+        {/* Button to view more company details */}
         {!openModal && (
           <div className="flex-center view-more-btn-section">
             <button
@@ -48,12 +58,16 @@ const JobCard = ({ jobData, handleOpenModal, openModal }) => {
           </div>
         )}
       </section>
+      {/* Section displaying minimum required experience */}
       <section className="min-experience-section">
         <h3 className="min-experience-heading">Minimum Experience</h3>
         <p>{jobData?.minExp || "2"} Years</p>
       </section>
+      {/* Section containing action buttons */}
       <section className="job-card-btn-section flex-col">
+        {/* Button for easy application */}
         <button className="btn-easy-apply flex-center">⚡ Easy Apply</button>
+        {/* Button to unlock referral asks */}
         <button className="flex-center btn-referral">
           <div>
             <img
@@ -76,4 +90,5 @@ const JobCard = ({ jobData, handleOpenModal, openModal }) => {
   );
 };
 
+// Exporting the JobCard component
 export default JobCard;

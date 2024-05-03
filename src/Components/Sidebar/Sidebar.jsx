@@ -1,3 +1,4 @@
+// Importing necessary dependencies and styles
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -10,11 +11,14 @@ import FactCheckOutlinedIcon from "@mui/icons-material/FactCheckOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import "./Sidebar.css";
 
+// Defining the Sidebar component
 const Sidebar = ({ isOpen, setIsOpen }) => {
+  // Function to toggle sidebar
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
+  // Navigation items data
   const navItems = [
     {
       title: "LOOKING FOR A JOB",
@@ -63,6 +67,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     },
   ];
 
+  // Effect hook to set sidebar state based on window size
   useEffect(() => {
     const handleResize = () => {
       setIsOpen(window.innerWidth > 1024);
@@ -73,8 +78,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     };
   }, []);
 
+  // Rendering the Sidebar component
   return (
     <div className={`sidebar ${isOpen ? "sidebar-open" : "sidebar-closed"}`}>
+      {/* Sidebar header */}
       <div className="sidebar-header flex-center">
         {isOpen ? (
           <div className="sidebar-logo-container" onClick={toggleSidebar}>
@@ -103,6 +110,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           <ChevronLeftIcon />
         </button>
       </div>
+      {/* Sidebar navigation */}
       <nav className="sidebar-nav">
         {navItems?.map((navItem, index) => {
           return (
@@ -117,26 +125,24 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               </h3>
               {navItem?.items?.map((item, itemIndex) => {
                 return (
-                  <>
-                    <NavLink
-                      key={itemIndex}
-                      className="sidebar-nav-item text-decoration-none"
-                      to="/"
-                    >
-                      {item?.icon}
-                      <span className={`${!isOpen && "hidden"} nav-item-name`}>
-                        {item?.display}
-                      </span>
-                      {item?.isNew && isOpen && <div className="new">New</div>}
-                    </NavLink>
-                  </>
+                  <NavLink
+                    key={itemIndex}
+                    className="sidebar-nav-item text-decoration-none"
+                    to="/"
+                  >
+                    {item?.icon}
+                    <span className={`${!isOpen && "hidden"} nav-item-name`}>
+                      {item?.display}
+                    </span>
+                    {item?.isNew && isOpen && <div className="new">New</div>}
+                  </NavLink>
                 );
               })}
             </div>
           );
         })}
       </nav>
-
+      {/* Sidebar profile */}
       <div className="sidebar-profile">
         <div className="sidebar-profile-image">
           <img
@@ -152,4 +158,5 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   );
 };
 
+// Exporting the Sidebar component
 export default Sidebar;
